@@ -1,0 +1,72 @@
+<!-- quiz/result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+    <h1>Result</h1>
+    <p>
+      <span style="font-size: 18px; font-weight: bold;">Total marks obtained:</span>
+      <span style="font-size: 16px;">{{ total_marks }} out of {{ quiz.question_set.count }}</span>
+    </p>
+    
+    {% if total_marks == quiz.question_set.count %}
+      <p style="color: green;">Congratulations! You have achieved a perfect score.</p>
+    {% elif total_marks >= 75 %}
+      <p style="color: green;">Well done! You have passed the quiz.</p>
+    {% else %}
+      <p style="color: red;">You need to study more.</p>
+    {% endif %}
+    
+
+  <canvas id="result-chart" width="400" height="200"></canvas>
+
+  <script>
+    var ctx = document.getElementById('result-chart').getContext('2d');
+    var data = {
+      labels: ['Correct', 'Incorrect'],
+      datasets: [{
+        label: 'Result',
+        data: [{{ total_marks }}, {{ quiz.question_set.count }} - {{ total_marks }}],
+        backgroundColor: ['green', 'red']
+      }]
+    };
+
+    var resultChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: {{ quiz.question_set.count }}
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

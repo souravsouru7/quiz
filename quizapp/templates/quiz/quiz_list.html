@@ -1,0 +1,13 @@
+<h2>Quizzes</h2>
+
+<ul class="quiz-list">
+  {% for quiz in quizzes %}
+    <li class="quiz-item">
+      <a href="{% url 'quiz_detail' quiz.id %}">
+        <img src="{{ quiz.image.url }}" alt="{{ quiz.title }}">
+        <h3>{{ quiz.title }}</h3>
+        <p>{{ quiz.description }}</p>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #666;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: #ff0000;
+      margin-top: 10px;
+    }
+
+    /* Custom styles */
+
+    .quiz-container {
+      width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 10px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .answer input[type="radio"] {
+      margin-bottom: 0;
+    }
+
+    .answer label {
+      font-size: 16px;
+    }
+
+    .submit-button {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>{{ quiz.title }}</h1>
+
+    {% if questions %}
+      <form method="POST" action="{% url 'submit_answer' quiz.id %}">
+        {% csrf_token %}
+
+        {% for question in questions %}
+          <div class="question">
+            <h2>Question {{ forloop.counter }}</h2>
+            <p>{{ question.text }}</p>
+
+            {% for answer in question.answer_set.all %}
+              <div class="answer">
+                <input type="radio" name="answer_{{ question.id }}" value="{{ answer.id }}">
+                <label>{{ answer.text }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+    {% else %}
+      <p>No questions found for this quiz.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
