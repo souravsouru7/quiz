@@ -1,13 +1,63 @@
-<h2>Quizzes</h2>
+{% load static %}
 
-<ul class="quiz-list">
-  {% for quiz in quizzes %}
-    <li class="quiz-item">
-      <a href="{% url 'quiz_detail' quiz.id %}">
-        <img src="{{ quiz.image.url }}" alt="{{ quiz.title }}">
-        <h3>{{ quiz.title }}</h3>
-        <p>{{ quiz.description }}</p>
-      </a>
-    </li>
-  {% endfor %}
-</ul>
+<style>
+  .my-div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .my-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(6px); /* Adjust the blur intensity as needed */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the box background color and opacity */
+  }
+
+  .my-div h1 {
+    position: absolute;
+    top: 09%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 80px;
+    font-weight: bolder;
+    z-index: 1;
+  }
+
+  .overlay-box {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 70%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the box background color and opacity */
+    border: 2px solid rgb(26, 24, 24); /* Adjust the box border style */
+    z-index: 1;
+    border-radius: 99px;
+  }
+  .h3{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: aliceblue;
+  }
+</style>
+
+<div class="my-div">
+  <img src="{% static 'images/123.jpg' %}" alt="">
+  <div class="overlay-box">
+    <h3 class="h3">Select the category:</h3>
+    <select name="category" id="category-select" style="font-size: 20px;  text-shadow: 0 0 0 #000; width: 450px;height: 46px;border-radius: 20px;">
+      {% for quiz in quizzes %}
+      <option value="category1">{{ quiz.title }}</option>
+      {% endfor %}
+      <!-- Add more options for each category as needed -->
+    </select>
+    
+  </div>
+  <h1>WELCOME TO QUIZ APP</h1>
+</div>
