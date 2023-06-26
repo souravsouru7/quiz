@@ -54,10 +54,11 @@
     <select name="category" id="category-select" style="font-size: 20px;  text-shadow: 0 0 0 #000; width: 450px;height: 46px;border-radius: 20px;">
       {% for quiz in quizzes %}
       <option value="category1">{{ quiz.title }}</option>
-      {% endfor %}
+      
       <!-- Add more options for each category as needed -->
     </select>
-    
+    <a href="{% url 'quiz_detail' quiz.id %}">
+      {% endfor %}
   </div>
   <h1>WELCOME TO QUIZ APP</h1>
 </div>

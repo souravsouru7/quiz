@@ -31,6 +31,9 @@
       <span style="font-size: 18px; font-weight: bold;">Total marks obtained:</span>
       <span style="font-size: 16px;">{{ total_marks }} out of {{ quiz.question_set.count }}</span>
     </p>
+    <p>
+      <a href="{% url 'generate_certificate' quiz.id %}" download>Download Certificate</a>
+    </p>
     
     {% if total_marks == quiz.question_set.count %}
       <p style="color: green;">Congratulations! You have achieved a perfect score.</p>

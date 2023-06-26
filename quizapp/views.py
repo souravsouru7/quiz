@@ -3,6 +3,8 @@
 # quiz/views.py
 from django.shortcuts import render, get_object_or_404
 from .models import Quiz, Question,Answer
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 
 def quiz_detail(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
@@ -29,3 +31,27 @@ def quiz_list(request):
     return render(request, 'quiz/quiz_list.html', {'quizzes': quizzes})
 
 # Other view functions...
+def generate_certificate(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+    # Retrieve user information or any other relevant data for the certificate
+    # Customize the certificate template using the retrieved data
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="certificate.pdf"'
+
+    # Generate the PDF
+    p = canvas.Canvas(response)
+    
+    # Customize the certificate design using ReportLab
+    p.setFont("Helvetica", 24)
+    p.drawString(100, 750, "Certificate of Completion")
+    
+    p.setFont("Helvetica", 14)
+    p.drawString(100, 700, "This is to certify that")
+    p.drawString(100, 675, "John Doe")
+    p.drawString(100, 650, "has successfully completed the")
+    p.drawString(100, 625, f"{quiz.title} Quiz")
+
+    p.showPage()
+    p.save()
+    return response
