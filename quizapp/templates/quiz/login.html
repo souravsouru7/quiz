@@ -1,0 +1,44 @@
+<style>
+    /* Example styles for the login form */
+    .login-form {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  
+    .login-form h2 {
+      text-align: center;
+    }
+  
+    .login-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  
+    .login-form button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  
+    .login-form button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  
+  <h2>Login</h2>
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  

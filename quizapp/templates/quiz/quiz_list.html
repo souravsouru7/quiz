@@ -45,19 +45,91 @@
     font-weight: bold;
     color: aliceblue;
   }
+  <style>
+  .quiz-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .quiz-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent; /* Adjust the navbar background color */
+    color: #ffffff; /* Adjust the navbar text color */
+    padding: 10px;
+    z-index: 2;
+  }
+
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: right;
+  }
+
+  .navbar li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .navbar li:last-child {
+    margin-right: 0;
+  }
+
+  .navbar a {
+    color: #ffffff; /* Adjust the navbar link color */
+    text-decoration: none;
+    padding: 5px 10px;
+  }
+
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+</style>
 </style>
 
+<div class="navbar">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+<div class="my-div">
 <div class="my-div">
   <img src="{% static 'images/123.jpg' %}" alt="">
   <div class="overlay-box">
-    <h3 class="h3">Select the category:</h3>
-    <select name="category" id="category-select" style="font-size: 20px;  text-shadow: 0 0 0 #000; width: 450px;height: 46px;border-radius: 20px;">
+    <h3 class="h3">Select the Language</h3>
       {% for quiz in quizzes %}
-      <option value="category1">{{ quiz.title }}</option>
-      
-      <!-- Add more options for each category as needed -->
-    </select>
-    <a href="{% url 'quiz_detail' quiz.id %}">
+    
+      <button style="    width: 476px;
+      border-radius: 21px;padding: 10px; margin: 12px;"><a href="{% url 'quiz_detail' quiz.id %}" class="quiz-button" style="text-decoration: none;">
+        <h2 style="color: black;" >{{ quiz.title }}</h2>
+      </a></button><br>
       {% endfor %}
   </div>
   <h1>WELCOME TO QUIZ APP</h1>
